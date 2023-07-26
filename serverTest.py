@@ -7,7 +7,8 @@ XQuickBox funciona de la misma forma, toda aplicación tiene un componente equiv
 """
 
 
-from Main.HtmlComponents import App, DivComponent, TextComponent
+from Main.HtmlComponents import App, DivComponent, TextComponent, LinkComponent, FooterComponent, NavComponent
+
 from bs4 import BeautifulSoup
 
 test = App(
@@ -19,13 +20,14 @@ test = App(
 
 
 # You can use ".append" to enter a new value in case the list already exists (and you want to enter it at the end, as you can assign everything within a single list. 
-basic_div = DivComponent(id='MyFirstDiv', 
+main_div = DivComponent(id='MyFirstDiv', 
                          content=[
 
                                 DivComponent(id='MySecondDiv', 
                                              content=[
-                                                 
-                                                 TextComponent("MyText", 
+                                                
+                                                LinkComponent('MyALink', visibleText='Click Here to view my YouTube Channel', url='https://www.youtube.com/@ElHaban3ro'),
+                                                TextComponent("MyText", 
                                                                content=['Hola', DivComponent(content=[TextComponent(content=['Hola!'])])])
 
                                              ])
@@ -34,7 +36,9 @@ basic_div = DivComponent(id='MyFirstDiv',
 
 
 
-test.content.append(basic_div)
+test.content.append(NavComponent()) # Nav bar.
+test.content.append(main_div) # A main container.
+test.content.append(FooterComponent()) # A Footer container.
 
 
 
