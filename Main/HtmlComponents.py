@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 # Estas clases representan las etiquetas HTML. Aquellas como "div" o "p".
 
-class App:
+class Box:
     def __init__(self, id: str = None, className: str = None, styles: list = [{'margin': 0}, {'padding': 0}], title: str = 'My XQuickBox! - RetroKode', metaDescription: str = None, metaKeywords: list = [], content: list = []): # Tag basic structure.
         """
 
@@ -28,10 +28,10 @@ class App:
         
         """
 
-        #! Metatags y otra info (los demás componentes no tendrán esto, solo la app principal)!
+        #! Metatags y otra info (los demás componentes no tendrán esto, solo la Box principal)!
 
 
-        self.availableCommonTypes = (App, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent)
         self.availableHeadTypes = ()
     
 
@@ -85,7 +85,7 @@ class App:
         return formattedCode
 
 
-    #! Si se hereda de APP no usar esta función, use el método Generate() de su propia función, hacerlo podría traer errores irreparables a nivel de código HTML.
+    #! Si se hereda de Box no usar esta función, use el método Generate() de su propia función, hacerlo podría traer errores irreparables a nivel de código HTML.
     def Generate(self):
         """
         
@@ -93,7 +93,7 @@ class App:
 
             If this generates the HTML equivalent that the component represents. If you are not an experienced developer who needs something very concrete, DO NOT TOUCH THIS. XQuickBox generates these equivalents in an automated way.
         
-            If you inherit from APP do not use this function, use the Generate() method of your own function, doing so could lead to irreparable errors at the HTML level.
+            If you inherit from Box do not use this function, use the Generate() method of your own function, doing so could lead to irreparable errors at the HTML level.
             
             :return: HTML String equivalent.
 
@@ -138,7 +138,7 @@ class App:
 
 #! OBJETOS HTML! EN RESUMEN: ETIQUETAS HTML.
 # Usar este componente (div) como base.
-class DivComponent(App):
+class DivComponent(Box):
     def __init__(self, id: str = None, className: str = None, styles: list = [], content: list = []): # Tag basic structure.
         """
 
@@ -156,7 +156,7 @@ class DivComponent(App):
         
         """
 
-        self.availableCommonTypes = (App, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene un cierre aparte?
@@ -211,7 +211,7 @@ class DivComponent(App):
 
         return result
 
-class TextComponent(App):
+class TextComponent(Box):
     def __init__(self, id: str = None, className: str = None, styles: list = [], content: list = []): # Tag basic structure.
         """
 
@@ -229,7 +229,7 @@ class TextComponent(App):
         
         """
         
-        self.availableCommonTypes = (App, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene cierre? NO SE CIERRA A SÍ MISMA.
@@ -283,7 +283,7 @@ class TextComponent(App):
         return result
 
 #! Main Structures.
-class NavComponent(App):
+class NavComponent(Box):
     def __init__(self, id: str = None, className: str = None, styles: list = [], content: list = []): # Tag basic structure.
         """
 
@@ -301,7 +301,7 @@ class NavComponent(App):
         
         """
 
-        self.availableCommonTypes = (App, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene un cierre aparte?
@@ -356,7 +356,7 @@ class NavComponent(App):
 
         return result
 
-class FooterComponent(App):
+class FooterComponent(Box):
     def __init__(self, id: str = None, className: str = None, styles: list = [], content: list = []): # Tag basic structure.
         """
 
@@ -374,7 +374,7 @@ class FooterComponent(App):
         
         """
 
-        self.availableCommonTypes = (App, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene un cierre aparte?
@@ -431,7 +431,7 @@ class FooterComponent(App):
 
 
 #! Other Components.
-class LinkComponent(App):
+class LinkComponent(Box):
     def __init__(self, id: str = None, className: str = None, styles: list = [], visibleText: str = None, url: str = None, inNewTab: bool = True): # Tag basic structure.
         """
 
@@ -454,7 +454,7 @@ class LinkComponent(App):
         
         """
 
-        self.availableCommonTypes = (App, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene un cierre aparte?
@@ -502,7 +502,7 @@ class LinkComponent(App):
 
         return result
 
-class ImgComponent(App):
+class ImgComponent(Box):
     def __init__(self, id: str = None, className: str = None, styles: list = [], imageUrl: str = None, width: float = 512, height: float = None, altImage: str = None): # Tag basic structure.
         """
 
@@ -527,7 +527,7 @@ class ImgComponent(App):
         
         """
 
-        self.availableCommonTypes = (App, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = False # ¿La etiqueta tiene un cierre aparte?
@@ -576,13 +576,13 @@ class ImgComponent(App):
         return result
 
 
-class TitleComponent(App):
+class TitleComponent(Box):
     def __init__(self, id: str = None, className: str = None, styles: list = [], content: list = []): # Tag basic structure.
         """
 
             # A "h1" component.
 
-            Component used to place titles. It is used to set the main titles of your application. As a rule, this component should only be there once, and is often used to put the title of the website in it (inside the nav). It is equivalent to a "h1" in HTML.
+            Component used to place titles. It is used to set the main titles of your Boxlication. As a rule, this component should only be there once, and is often used to put the title of the website in it (inside the nav). It is equivalent to a "h1" in HTML.
 
             :param id: HTML identifier. It is the value taken by the "id" key in an HTML tag. All tags can take this value without affecting their output. Use this for CSS styling.
 
@@ -594,7 +594,7 @@ class TitleComponent(App):
         
         """
         
-        self.availableCommonTypes = (App, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene cierre? NO SE CIERRA A SÍ MISMA.
@@ -647,7 +647,7 @@ class TitleComponent(App):
 
         return result
 
-class SubtitleComponent(App):
+class SubtitleComponent(Box):
     def __init__(self, id: str = None, className: str = None, styles: list = [], content: list = []): # Tag basic structure.
         """
 
@@ -665,7 +665,7 @@ class SubtitleComponent(App):
         
         """
         
-        self.availableCommonTypes = (App, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene cierre? NO SE CIERRA A SÍ MISMA.
@@ -718,7 +718,7 @@ class SubtitleComponent(App):
 
         return result
 
-class SmallTitleComponent(App):
+class SmallTitleComponent(Box):
     def __init__(self, id: str = None, className: str = None, styles: list = [], content: list = []): # Tag basic structure.
         """
 
@@ -736,7 +736,7 @@ class SmallTitleComponent(App):
         
         """
         
-        self.availableCommonTypes = (App, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene cierre? NO SE CIERRA A SÍ MISMA.
@@ -790,7 +790,7 @@ class SmallTitleComponent(App):
         return result
 
 
-class UnorderedListComponent(App):
+class UnorderedListComponent(Box):
     def __init__(self, id: str = None, className: str = None, styles: list = [], content: list = []): # Tag basic structure.
         """
 
@@ -808,7 +808,7 @@ class UnorderedListComponent(App):
         
         """
 
-        self.availableCommonTypes = (App, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene un cierre aparte?
@@ -864,7 +864,7 @@ class UnorderedListComponent(App):
         return result
 
 
-class OrderedListComponent(App):
+class OrderedListComponent(Box):
     def __init__(self, id: str = None, className: str = None, styles: list = [], content: list = []): # Tag basic structure.
         """
 
@@ -882,7 +882,7 @@ class OrderedListComponent(App):
         
         """
 
-        self.availableCommonTypes = (App, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene un cierre aparte?

@@ -11,7 +11,7 @@ from Main.HtmlComponents import App, DivComponent, TextComponent, LinkComponent,
 
 from bs4 import BeautifulSoup
 
-test = App(
+test = Box(
     title='My quickly web uwu',
     styles=[{'margin': 0}, {'padding': 0}], #? Temporal System.
     metaDescription='A test web with XQuickBox', 
