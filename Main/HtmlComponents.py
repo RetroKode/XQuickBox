@@ -1,3 +1,7 @@
+# Librerías
+from bs4 import BeautifulSoup
+
+
 # Estas clases representan las etiquetas HTML. Aquellas como "div" o "p".
 
 class App:
@@ -27,14 +31,17 @@ class App:
         #! Metatags y otra info (los demás componentes no tendrán esto, solo la app principal)!
 
 
-        self.availableTypes = (App, DivComponent, TextComponent)
+        self.availableCommonTypes = (App, DivComponent, TextComponent)
+        self.availableHeadTypes = ()
     
+
+        # TODO: Hacer uso de los metadatos.
         self.title = title
         self.metaDescription = metaDescription
         self.metaKeywords = metaKeywords
 
         self.closeTagType = True # ¿La etiqueta tiene cierre?
-        self.tagName = 'html'
+        self.tagName = 'body'
         
         self.id = id # Id de la etiqueta. 
         self.className = className # clase de la etiqueta.
@@ -60,9 +67,22 @@ class App:
         for property in styles:
             stylesString += f'{list(property.keys())[0]}: {list(property.values())[0]};'
 
-
-        # TODO: make this.
         return stylesString
+
+    def CodeParser(self, HtmlCode: str):
+        """
+        
+            # Generate nice html code!
+
+            :param HtmlCode: HTML code to be formatted.
+
+        """
+
+
+        soup = BeautifulSoup(HtmlCode, features="html.parser")
+        formattedCode = soup.prettify()
+
+        return formattedCode
 
 
     
@@ -85,14 +105,16 @@ class App:
         result = f"""<{self.tagName} {'id="' + self.id + '"' if self.id != None else ''} {'class="' + self.className + '"' if self.className != None else ''} {'style="' + stylesString + '"' if len(self.styles) >= 1 else ''} {'>' if self.closeTagType else '/>'}\n"""
 
         if self.closeTagType:
-            for element in self.content:
 
-                if isinstance(element, self.availableTypes):
+            for element in self.content:
+                
+                if isinstance(element, self.availableCommonTypes):
                     elementResult = element.Generate()
                     result += elementResult
 
-                elif type(element) == type(str) or type(element) == type(int) or type(element) == type(float):
-                    elementResult = TextComponent(className='basicText', content=element).Generate()
+                elif isinstance(element, (str, int, float)):
+                    # TODO: Arreglar esto.
+                    elementResult = TextComponent(className='basicText', content=[str(element)]).Generate()
                     result += elementResult
 
 
@@ -100,7 +122,9 @@ class App:
             result += f'\n</{self.tagName}>\n'
 
 
-        result = result.replace('  ', '')
+        result = result.replace('  ', ' ')
+
+        result = self.CodeParser(result)
 
         return result
 
@@ -131,7 +155,8 @@ class DivComponent(App):
         
         """
 
-        self.availableTypes = (App, DivComponent, TextComponent)
+        self.availableCommonTypes = (App, DivComponent, TextComponent)
+        self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene un cierre aparte?
         self.tagName = 'div' # Etiqueta de entrada.
@@ -147,15 +172,52 @@ class DivComponent(App):
 
     # Función que perite generar el string HTML.
     def Generate(self):
-        return super().Generate()
+        """
+        
+            # Generate the HTML equivalent.
+
+            If this generates the HTML equivalent that the component represents. If you are not an experienced developer who needs something very concrete, DO NOT TOUCH THIS. XQuickBox generates these equivalents in an automated way.
+        
+            
+            :return: HTML String equivalent.
+
+        """
+
+        # Resultado. Esto devuelve un string HTML.
+        stylesString = self.StylesParser(self.styles)
+
+        # Ésta es la primera parte del resultado.
+        result = f"""<{self.tagName} {'id="' + self.id + '"' if self.id != None else ''} {'class="' + self.className + '"' if self.className != None else ''} {'style="' + stylesString + '"' if len(self.styles) >= 1 else ''} {'>' if self.closeTagType else '/>'}\n"""
+
+        if self.closeTagType:
+            for element in self.content:
+                
+                if isinstance(element, self.availableCommonTypes):
+                    elementResult = element.Generate()
+                    result += elementResult
+
+                elif isinstance(element, (str, int, float)):
+                    # TODO: Arreglar esto.
+                    elementResult = TextComponent(className='basicText', content=[str(element)]).Generate()
+                    result += elementResult
+
+
+
+            result += f'\n</{self.tagName}>\n'
+
+
+        result = result.replace('  ', ' ')
+
+        return result
 
 
 
 
 
-# Un div básico. Representa un "<p></p>"
+
+# Un P común. Representa un "<p></p>"
 class TextComponent(App):
-    def __init__(self, id: str = None, className: str = None, styles: list = [], content: str = ''): # Tag basic structure.
+    def __init__(self, id: str = None, className: str = None, styles: list = [], content: list = []): # Tag basic structure.
         """
 
             # A "p" component.
@@ -168,13 +230,14 @@ class TextComponent(App):
 
             :param styles: List of dictionaries with css styles. This feature is under test and will possibly evolve to native Python support with own objects. For now, leave key-value values as they are in CSS. An example would be: ```{"display": "flex"}```
 
-            :param content: Text to be contained in the label. It is a string.
+            :param content: List containing all the children of this container. If you want text as is, just put a string inside the list, if you want components, insert the components themselves.
         
         """
         
-        self.availableTypes = (App, DivComponent, TextComponent)
+        self.availableCommonTypes = (App, DivComponent, TextComponent)
+        self.availableHeadTypes = ()
 
-        self.closeTagType = True # ¿La etiqueta tiene cierre?
+        self.closeTagType = True # ¿La etiqueta tiene cierre? NO SE CIERRA A SÍ MISMA.
         self.tagName = 'p' # Etiqueta de entrada.
         
         self.id = id # Id de la etiqueta. 
@@ -186,4 +249,40 @@ class TextComponent(App):
 
     # Función que perite generar el string HTML.
     def Generate(self):
-        return super().Generate()
+        """
+        
+            # Generate the HTML equivalent.
+
+            If this generates the HTML equivalent that the component represents. If you are not an experienced developer who needs something very concrete, DO NOT TOUCH THIS. XQuickBox generates these equivalents in an automated way.
+        
+            
+            :return: HTML String equivalent.
+
+        """
+
+        # Resultado. Esto devuelve un string HTML.
+        stylesString = self.StylesParser(self.styles)
+
+        # Ésta es la primera parte del resultado.
+        result = f"""<{self.tagName} {'id="' + self.id + '"' if self.id != None else ''} {'class="' + self.className + '"' if self.className != None else ''} {'style="' + stylesString + '"' if len(self.styles) >= 1 else ''} {'>' if self.closeTagType else '/>'}\n"""
+
+        if self.closeTagType:
+            for element in self.content:
+                        
+                if isinstance(element, self.availableCommonTypes):
+                    elementResult = element.Generate()
+                    result += elementResult
+
+                elif isinstance(element, (str, int, float)):
+                    # TODO: Arreglar esto.
+                    elementResult = element
+                    result += elementResult
+
+
+
+            result += f'\n</{self.tagName}>\n'
+
+
+        result = result.replace('  ', ' ')
+
+        return result

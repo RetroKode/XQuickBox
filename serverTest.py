@@ -7,8 +7,8 @@ XQuickBox funciona de la misma forma, toda aplicación tiene un componente equiv
 """
 
 
-from Main.components import App, DivComponent, TextComponent
-
+from Main.HtmlComponents import App, DivComponent, TextComponent
+from bs4 import BeautifulSoup
 
 test = App(
     title='My quickly web uwu',
@@ -19,27 +19,24 @@ test = App(
 
 
 # You can use ".append" to enter a new value in case the list already exists (and you want to enter it at the end, as you can assign everything within a single list. 
-test.content = ['...']
-test.content.append('...')
-
-
-
-basic_div = DivComponent(
-                         styles=[
-                             {'display': 'none'}, 
-                            {'background': 'red'}, 
-                            {'color': 'white'}
-                          ], 
-                         
+basic_div = DivComponent(id='MyFirstDiv', 
                          content=[
-                             
-                                DivComponent(), 
-                                TextComponent(),
-                                'sopa'
-                                
-                             ]
 
-                            )
+                                DivComponent(id='MySecondDiv', 
+                                             content=[
+                                                 
+                                                 TextComponent("MyText", 
+                                                               content=['Hola', DivComponent(content=[TextComponent(content=['Hola!'])])])
+
+                                             ])
+
+                         ])
 
 
-print(basic_div.Generate())
+
+test.content.append(basic_div)
+
+
+
+mainFile = test.Generate()
+print(mainFile)
