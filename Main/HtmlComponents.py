@@ -31,7 +31,7 @@ class Box:
         #! Metatags y otra info (los demás componentes no tendrán esto, solo la Box principal)!
 
 
-        self.availableCommonTypes = (Box, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent, NavComponent, FooterComponent, LinkComponent, ImgComponent, TitleComponent, SubtitleComponent, SmallTitleComponent, UnorderedListComponent, OrderedListComponent)
         self.availableHeadTypes = ()
     
 
@@ -156,7 +156,7 @@ class DivComponent(Box):
         
         """
 
-        self.availableCommonTypes = (Box, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent, NavComponent, FooterComponent, LinkComponent, ImgComponent, TitleComponent, SubtitleComponent, SmallTitleComponent, UnorderedListComponent, OrderedListComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene un cierre aparte?
@@ -229,7 +229,7 @@ class TextComponent(Box):
         
         """
         
-        self.availableCommonTypes = (Box, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent, NavComponent, FooterComponent, LinkComponent, ImgComponent, TitleComponent, SubtitleComponent, SmallTitleComponent, UnorderedListComponent, OrderedListComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene cierre? NO SE CIERRA A SÍ MISMA.
@@ -301,7 +301,7 @@ class NavComponent(Box):
         
         """
 
-        self.availableCommonTypes = (Box, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent, NavComponent, FooterComponent, LinkComponent, ImgComponent, TitleComponent, SubtitleComponent, SmallTitleComponent, UnorderedListComponent, OrderedListComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene un cierre aparte?
@@ -374,7 +374,7 @@ class FooterComponent(Box):
         
         """
 
-        self.availableCommonTypes = (Box, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent, NavComponent, FooterComponent, LinkComponent, ImgComponent, TitleComponent, SubtitleComponent, SmallTitleComponent, UnorderedListComponent, OrderedListComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene un cierre aparte?
@@ -454,7 +454,7 @@ class LinkComponent(Box):
         
         """
 
-        self.availableCommonTypes = (Box, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent, NavComponent, FooterComponent, LinkComponent, ImgComponent, TitleComponent, SubtitleComponent, SmallTitleComponent, UnorderedListComponent, OrderedListComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene un cierre aparte?
@@ -527,7 +527,7 @@ class ImgComponent(Box):
         
         """
 
-        self.availableCommonTypes = (Box, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent, NavComponent, FooterComponent, LinkComponent, ImgComponent, TitleComponent, SubtitleComponent, SmallTitleComponent, UnorderedListComponent, OrderedListComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = False # ¿La etiqueta tiene un cierre aparte?
@@ -561,7 +561,7 @@ class ImgComponent(Box):
         stylesString = self.StylesParser(self.styles)
 
         # Ésta es la primera parte del resultado.
-        result = f"""<{self.tagName} {'id="' + self.id + '"' if self.id != None else ''} {'class="' + self.className + '"' if self.className != None else ''} {'style="' + stylesString + '"' if len(self.styles) >= 1 else ''} {'src="' + self.imageUrl + '"' if self.imageUrl else ''} {'width="' + self.width + 'px"' if self.width else ''} {'height="' + self.height + 'px"' if self.height else ''} {'alt="' + self.altImage + '"' if self.altImage else ''} {'>' if self.closeTagType else '/>'}\n"""
+        result = f"""<{self.tagName} {'id="' + self.id + '"' if self.id != None else ''} {'class="' + self.className + '"' if self.className != None else ''} {'style="' + stylesString + '"' if len(self.styles) >= 1 else ''} {'src="' + self.imageUrl + '"' if self.imageUrl else ''} {'width="' + str(self.width) + 'px"' if self.width else ''} {'height="' + str(self.height) + 'px"' if self.height else ''} {'alt="' + self.altImage + '"' if self.altImage else ''} {'>' if self.closeTagType else '/>'}\n"""
 
         if self.closeTagType:
             
@@ -594,7 +594,7 @@ class TitleComponent(Box):
         
         """
         
-        self.availableCommonTypes = (Box, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent, NavComponent, FooterComponent, LinkComponent, ImgComponent, TitleComponent, SubtitleComponent, SmallTitleComponent, UnorderedListComponent, OrderedListComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene cierre? NO SE CIERRA A SÍ MISMA.
@@ -665,7 +665,7 @@ class SubtitleComponent(Box):
         
         """
         
-        self.availableCommonTypes = (Box, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent, NavComponent, FooterComponent, LinkComponent, ImgComponent, TitleComponent, SubtitleComponent, SmallTitleComponent, UnorderedListComponent, OrderedListComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene cierre? NO SE CIERRA A SÍ MISMA.
@@ -736,7 +736,7 @@ class SmallTitleComponent(Box):
         
         """
         
-        self.availableCommonTypes = (Box, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent, NavComponent, FooterComponent, LinkComponent, ImgComponent, TitleComponent, SubtitleComponent, SmallTitleComponent, UnorderedListComponent, OrderedListComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene cierre? NO SE CIERRA A SÍ MISMA.
@@ -808,7 +808,7 @@ class UnorderedListComponent(Box):
         
         """
 
-        self.availableCommonTypes = (Box, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent, NavComponent, FooterComponent, LinkComponent, ImgComponent, TitleComponent, SubtitleComponent, SmallTitleComponent, UnorderedListComponent, OrderedListComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene un cierre aparte?
@@ -882,7 +882,7 @@ class OrderedListComponent(Box):
         
         """
 
-        self.availableCommonTypes = (Box, DivComponent, TextComponent)
+        self.availableCommonTypes = (Box, DivComponent, TextComponent, NavComponent, FooterComponent, LinkComponent, ImgComponent, TitleComponent, SubtitleComponent, SmallTitleComponent, UnorderedListComponent, OrderedListComponent)
         self.availableHeadTypes = ()
 
         self.closeTagType = True # ¿La etiqueta tiene un cierre aparte?

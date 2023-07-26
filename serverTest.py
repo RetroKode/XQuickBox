@@ -7,40 +7,26 @@ XQuickBox funciona de la misma forma, toda aplicación tiene un componente equiv
 """
 
 
-from Main.HtmlComponents import App, DivComponent, TextComponent, LinkComponent, FooterComponent, NavComponent
-
-from bs4 import BeautifulSoup
-
-test = Box(
-    title='My quickly web uwu',
-    styles=[{'margin': 0}, {'padding': 0}], #? Temporal System.
-    metaDescription='A test web with XQuickBox', 
-    metaKeywords=['test', 'XQuickBox', 'RetroKode', 'RetroKodeFramework']
-    )
+from Main.HtmlComponents import *
 
 
-# You can use ".append" to enter a new value in case the list already exists (and you want to enter it at the end, as you can assign everything within a single list. 
-main_div = DivComponent(id='MyFirstDiv', 
-                         content=[
-
-                                DivComponent(id='MySecondDiv', 
-                                             content=[
-                                                
-                                                LinkComponent('MyALink', visibleText='Click Here to view my YouTube Channel', url='https://www.youtube.com/@ElHaban3ro'),
-                                                TextComponent("MyText", 
-                                                               content=['Hola', DivComponent(content=[TextComponent(content=['Hola!'])])])
-
-                                             ])
-
-                         ])
+MyQuickWeb = Box(title='funny cats images') # "Box", for practical purposes, it is a web page. A secure and fast environment where you can run it, test it and create it.
 
 
+MyQuickWeb.content = [
 
-test.content.append(NavComponent()) # Nav bar.
-test.content.append(main_div) # A main container.
-test.content.append(FooterComponent()) # A Footer container.
+	DivComponent(id='funnyCatsContainer',
+	content=[
+
+		TitleComponent(
+			content=['See my cats (not are my cats really)']),
+			
+		ImgComponent(
+			imageUrl='https://i.ytimg.com/vi/YSHDBB6id4A/maxresdefault.jpg', 
+			altImage = 'a cute cat (with a hat)')
+
+		])
+]
 
 
-
-mainFile = test.Generate()
-print(mainFile)
+print(MyQuickWeb.Generate())
