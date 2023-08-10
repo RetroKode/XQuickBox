@@ -15,6 +15,9 @@ MyQuickWeb = Box(title='funny cats images') # "Box", for practical purposes, it 
 
 MyQuickWeb.content = [
 
+	TextComponent(content=['Text me']),
+	LinkComponent(visibleText='here', url='https://www.youtube.com/watch?v=dQw4w9WgXcQ'),
+
 	DivComponent(id='funnyCatsContainer',
 	content=[
 
@@ -24,9 +27,9 @@ MyQuickWeb.content = [
 		ImgComponent(
 			imageUrl='https://i.ytimg.com/vi/YSHDBB6id4A/maxresdefault.jpg', 
 			altImage = 'a cute cat (with a hat)')
-
 		])
 ]
 
 
-print(MyQuickWeb.Generate())
+
+MyQuickWeb.RunTestMode()

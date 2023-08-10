@@ -1,11 +1,11 @@
 # Librerías
 from bs4 import BeautifulSoup
+from flask import Flask
 
 
-# Estas clases representan las etiquetas HTML. Aquellas como "div" o "p".
-
+# La App principal. Equivale a un archivo HTML.
 class Box:
-    def __init__(self, id: str = None, className: str = None, styles: list = [{'margin': 0}, {'padding': 0}], title: str = 'My XQuickBox! - RetroKode', metaDescription: str = None, metaKeywords: list = [], content: list = []): # Tag basic structure.
+    def __init__(self, id: str = None, className: str = None, styles: list = [{'margin': 0}, {'padding': 0}], title: str = 'My XQuickBox! - RetroKode', metaDescription: str = None, metaKeywords: list = [], webIcon: str = None, content: list = []): # Tag basic structure.
         """
 
             # Instance of a web!
@@ -23,6 +23,8 @@ class Box:
             :param metaDescription: The description of the web page. It is the value resulting from assigning the key "content" in the meta key tag "name" with value "desc".
 
             :param metaKeywords: Keywords of the web page. List of strings. It is the value resulting from assigning the key "content" in the meta key tag "name" with value "keywords".
+
+            :param webIcon: represents the local path (inside your computer) or URL of your web icon.
 
             :param content: List containing all the children of this container. Here will go all the other components you want inside this container.
         
@@ -83,6 +85,32 @@ class Box:
         formattedCode = soup.prettify()
 
         return formattedCode
+
+
+    def RunTestMode(self, port: int = 8080):
+        """
+        
+        # CREATES A REAL-TIME TEST SERVER
+
+        :param port: Port on which your test site will run. The default is 8080. If the port is busy, it will be searched on port + 1.
+        
+        """
+
+        app = Flask(self.title)
+
+        web_content = self.Generate() # El contenido de la aplicación.
+
+        @app.route('/')
+        def main_app():
+            return web_content
+        
+
+
+        
+        app.run(port = port, debug = True)
+
+        
+
 
 
     #! Si se hereda de Box no usar esta función, use el método Generate() de su propia función, hacerlo podría traer errores irreparables a nivel de código HTML.
