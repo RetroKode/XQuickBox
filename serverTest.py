@@ -32,4 +32,4 @@ MyQuickWeb.content = [
 
 
 
-MyQuickWeb.RunTestMode()
+MyQuickWeb.RunDevMode()

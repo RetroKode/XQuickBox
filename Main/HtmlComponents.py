@@ -88,7 +88,7 @@ class Box:
         return formattedCode
 
 
-    def RunTestMode(self, port: int = 8080):
+    def RunDevtMode(self, port: int = 8080):
         """
         
         # CREATES A REAL-TIME TEST SERVER
