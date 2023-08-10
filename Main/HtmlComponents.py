@@ -41,6 +41,7 @@ class Box:
         self.title = title
         self.metaDescription = metaDescription
         self.metaKeywords = metaKeywords
+        self.webIcon = webIcon # Web icon.
 
         self.closeTagType = True # ¿La etiqueta tiene cierre?
         self.tagName = 'body'
@@ -127,6 +128,27 @@ class Box:
 
         """
 
+        head = f"""
+
+            <head>
+            
+                <title>{self.title if self.title != None else 'Super Girls'}</title>
+                <meta name="description" content="{self.metaDescription if self.metaDescription != None else 'Short Description Here. Web made with XQuickBox (https://retrokode.com/projects/frameworks/XQuickBox)'}">
+
+                <meta name="keywords" content="{str(self.metaKeywords).replace('[', '').replace(']', '').replace('"', '').replace("'", '')}">
+
+                <link rel="shortcut icon" href="{self.webIcon if self.webIcon != None else 'https://pbs.twimg.com/profile_images/1607576808660078592/MlagycpF_400x400.jpg'}" type="image/x-icon">
+
+            </head>
+
+        """
+
+        
+
+
+
+
+
         # Resultado. Esto devuelve un string HTML.
         stylesString = self.StylesParser(self.styles)
 
@@ -153,7 +175,9 @@ class Box:
 
         result = result.replace('  ', ' ')
 
-        result = self.CodeParser(result)
+
+        result = self.CodeParser('<!DOCTYPE html><html lang="en">' + head + result + '</html>') 
+
 
         return result
 

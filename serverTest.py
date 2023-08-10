@@ -10,7 +10,7 @@ XQuickBox funciona de la misma forma, toda aplicación tiene un componente equiv
 from Main.HtmlComponents import *
 
 
-MyQuickWeb = Box(title='funny cats images') # "Box", for practical purposes, it is a web page. A secure and fast environment where you can run it, test it and create it.
+MyQuickWeb = Box(title='funny cats images', metaKeywords=['cats', 'cats lover', 'VIAJE A LAS ESTRELLAS']) # "Box", for practical purposes, it is a web page. A secure and fast environment where you can run it, test it and create it.
 
 
 MyQuickWeb.content = [
